@@ -3,7 +3,7 @@ package similarityMetrics;
 import java.util.LinkedHashMap;
 
 import retrieval.Cases;
-import retrieval.Cases.Case;
+import retrieval.TravelCase;
 
 public class DefaultMetrics {
 	public Cases cases;
@@ -19,7 +19,7 @@ public class DefaultMetrics {
 		// Get all types and add them to a linked hashmap
 		this.holidayTypes = new LinkedHashMap<String, Integer>();
 		int size = 0;
-		for(Case currentCase : cases.cases){
+		for(TravelCase currentCase : cases.cases){
 			String currentHolidayType = currentCase.holidayType;
 			if(!this.holidayTypes.containsKey(currentHolidayType)){
 				this.holidayTypes.put(currentHolidayType, size++);

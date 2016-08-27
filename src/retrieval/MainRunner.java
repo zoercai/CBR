@@ -1,5 +1,7 @@
 package retrieval;
 
+import java.util.PriorityQueue;
+
 import similarityMetrics.DefaultMetrics;
 import similarityMetrics.KNearestNeighbour;
 
@@ -11,6 +13,15 @@ public class MainRunner {
 		DefaultMetrics defaultMetrics = new DefaultMetrics(cases);
 		defaultMetrics.populateHolidayTypes();
 		
-		KNearestNeighbour similarityCalculator = new KNearestNeighbour(defaultMetrics);
+		KNearestNeighbour similarityCalculator = new KNearestNeighbour(defaultMetrics, cases);
+		
+		TravelCase testCase = new TravelCase();
+		testCase.holidayType = "Recreation";
+		
+		PriorityQueue<TravelCase> nearestNeighbours = similarityCalculator.getNearestNeighbours(testCase);
+		while(!nearestNeighbours.isEmpty()){
+			TravelCase currentNeighbour = nearestNeighbours.poll();
+			System.out.println(currentNeighbour.caseName + ": " + currentNeighbour.holidayType);
+		}
 	}
 }

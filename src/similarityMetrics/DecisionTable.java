@@ -16,12 +16,12 @@ public class DecisionTable {
 	
 	public void printTableValues(){
 		for(String type : positions.keySet()){
-			System.out.print(type + "\t\t");
+			System.out.print(type + "\t");
 		}
 		for(double[] row : similarityValues){
 			System.out.println();
 			for(Double value : row){
-				System.out.print(value + "\t\t");
+				System.out.print(value + "\t");
 			}
 		}
 	}

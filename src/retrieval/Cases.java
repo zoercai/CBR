@@ -8,7 +8,7 @@ import com.opencsv.CSVReader;
 
 public class Cases {
 	
-	public ArrayList<Case> cases = new ArrayList<Case>();
+	public ArrayList<TravelCase> cases = new ArrayList<TravelCase>();
 	
 	public boolean caseName = false;
 	public boolean journeyCode = false;
@@ -44,8 +44,8 @@ public class Cases {
 		return processedValue;
 	}
 	
-	protected Case parseCase(CSVReader reader) throws NumberFormatException, IOException{
-		Case newCase = new Case();
+	protected TravelCase parseCase(CSVReader reader) throws NumberFormatException, IOException{
+		TravelCase newCase = new TravelCase();
     	reader.readNext();
     	newCase.caseName = stripPunctuation(reader.readNext()[2]);
     	newCase.journeyCode = Integer.parseInt(stripPunctuation(reader.readNext()[2]));
@@ -60,19 +60,4 @@ public class Cases {
     	newCase.hotel = stripPunctuation(reader.readNext()[2]);
     	return newCase;
 	}
-	
-	public class Case{
-		protected String caseName;
-		protected int journeyCode;
-		public String holidayType;
-		protected int price;
-		protected int numOfPersons;
-		protected String region;
-		protected String transportation;
-		protected int duration;
-		protected String season;
-		protected String accommodation;
-		protected String hotel;
-	}
-
 }
