@@ -1,14 +1,16 @@
 package retrieval;
 
-import retrieval.Cases.Case;
+import similarityMetrics.DefaultMetrics;
+import similarityMetrics.KNearestNeighbour;
 
 public class MainRunner {
 	public static void main(String[] args){
 		Cases cases = new Cases();
 		cases.read();
 		
-		for(Case currentCase : cases.classes){
-			System.out.println(currentCase.hotel);
-		}
+		DefaultMetrics defaultMetrics = new DefaultMetrics(cases);
+		defaultMetrics.populateHolidayTypes();
+		
+		KNearestNeighbour similarityCalculator = new KNearestNeighbour(defaultMetrics);
 	}
 }
