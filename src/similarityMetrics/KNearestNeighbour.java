@@ -9,7 +9,11 @@ import retrieval.TravelCase;
 public class KNearestNeighbour {
 	public DefaultMetrics metrics;
 	public Cases cases;
-	public double holidayType = 1;
+	public double holidayWeight = 0;
+	public double transportWeight = 0;
+	public double priceWeight = 0;
+	public double peopleWeight = 0;
+	public double durationWeight = 1;
 
 	public KNearestNeighbour(DefaultMetrics defaultMetrics, Cases cases) {
 		this.metrics  = defaultMetrics;
@@ -20,11 +24,20 @@ public class KNearestNeighbour {
 		CaseComparator caseComparator = new CaseComparator();
 		PriorityQueue<TravelCase> nearestNeighbours = new PriorityQueue<TravelCase>(caseComparator);
 		for(TravelCase currentCase : cases.cases){
-			double holidayTypeSimilarity = this.metrics.holidayTypeDecisionTable.getValue(newCase.holidayType, currentCase.holidayType);
-			double localSimilarity = holidayTypeSimilarity * this.holidayType;
-			double globalSimilarity = localSimilarity;
+			double holidayTypeSimilarity = this.metrics.holidayDecisionTable.getValue(newCase.holidayType, currentCase.holidayType);
+			double transportTypeSimilarity = this.metrics.transportDecisionTable.getValue(newCase.transportation, currentCase.transportation);
+			double priceSimilarity = this.metrics.calculatePriceSimilarity(newCase.price, currentCase.price);
+			double peopleSimilarity = this.metrics.calculatePeopleSimilarity(newCase.numOfPersons, currentCase.numOfPersons);
+			double durationSimilarity = this.metrics.calculateDurationSimilarity(newCase.duration, currentCase.duration);
+			
+			double globalSimilarity = holidayTypeSimilarity * this.holidayWeight + 
+					transportTypeSimilarity * this.transportWeight + 
+					priceSimilarity * this.priceWeight + 
+					peopleSimilarity * this.peopleWeight +
+					durationSimilarity * this.durationWeight;
+			
 			currentCase.similarity = globalSimilarity;
-//			System.out.println(currentCase.caseName + ": " + currentCase.holidayType + "\t" + currentCase.similarity);
+			
 			nearestNeighbours.add(currentCase);
 		}
 		return nearestNeighbours;
@@ -33,7 +46,7 @@ public class KNearestNeighbour {
 	public class CaseComparator implements Comparator<TravelCase>{
 		@Override
 		public int compare(TravelCase o1, TravelCase o2) {
-			double accuracy = 1000;
+			double accuracy = 10000;
 			return (int) (o2.similarity*accuracy - o1.similarity*accuracy);
 		}
 	}
