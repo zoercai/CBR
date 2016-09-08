@@ -13,7 +13,9 @@ public class KNearestNeighbour {
 	public double transportWeight = 0;
 	public double priceWeight = 0;
 	public double peopleWeight = 0;
-	public double durationWeight = 1;
+	public double durationWeight = 0;
+	public double seasonWeight = 0;
+	public double accommodationWeight = 1;
 
 	public KNearestNeighbour(DefaultMetrics defaultMetrics, Cases cases) {
 		this.metrics  = defaultMetrics;
@@ -29,12 +31,16 @@ public class KNearestNeighbour {
 			double priceSimilarity = this.metrics.calculatePriceSimilarity(newCase.price, currentCase.price);
 			double peopleSimilarity = this.metrics.calculatePeopleSimilarity(newCase.numOfPersons, currentCase.numOfPersons);
 			double durationSimilarity = this.metrics.calculateDurationSimilarity(newCase.duration, currentCase.duration);
+			double seasonSimilarity = this.metrics.calculateSeasonSimilarity(newCase.season, currentCase.season);
+			double accomSimilarity = this.metrics.calculateAccommodationSimilarity(newCase.accommodation, currentCase.accommodation);
 			
 			double globalSimilarity = holidayTypeSimilarity * this.holidayWeight + 
 					transportTypeSimilarity * this.transportWeight + 
 					priceSimilarity * this.priceWeight + 
 					peopleSimilarity * this.peopleWeight +
-					durationSimilarity * this.durationWeight;
+					durationSimilarity * this.durationWeight +
+					seasonSimilarity * this.seasonWeight + 
+					accomSimilarity * this.accommodationWeight;
 			
 			currentCase.similarity = globalSimilarity;
 			

@@ -25,6 +25,8 @@ public class MainRunner {
 		testCase.price = 400;
 		testCase.numOfPersons = 6;
 		testCase.duration = 10;
+		testCase.season = "January";
+		testCase.accommodation = "HolidayFlat";
 		
 		PriorityQueue<TravelCase> nearestNeighbours = similarityCalculator.getNearestNeighbours(testCase);
 		while(!nearestNeighbours.isEmpty()){

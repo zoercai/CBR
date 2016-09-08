@@ -1,6 +1,11 @@
 package similarityMetrics;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 import retrieval.Cases;
 import retrieval.TravelCase;
@@ -17,6 +22,7 @@ public class DefaultMetrics {
 	public double priceThreshold = 0.25;
 	public double peopleThreshold = 1.0/3;
 	public double durationThreshold = 1.0/3;
+	public double accomThreshold = 1.0/3;
 	
 	public DefaultMetrics(Cases cases){
 		this.cases = cases;
@@ -97,5 +103,67 @@ public class DefaultMetrics {
 		}
 		// if more days than we need
 		return (-1/(newDuration*durationThreshold))*(double)(existingDuration-newDuration) + 1;
+	}
+	
+	public double calculateSeasonSimilarity(String newSeason, String existingSeason){
+		int newMonth = convertMonth(newSeason)+1;
+		int existingMonth = convertMonth(existingSeason)+1;
+		
+		// if same month, return 1.0
+		if(newMonth==existingMonth){
+			return 1.0;
+		}
+		
+		// if different, calculate season
+		int seasonDifference = Math.abs((newMonth%12)/3 - (existingMonth%12)/3);
+		
+		if(seasonDifference==0){
+			// if same season
+			return 0.8;
+		} else if(seasonDifference==1 || seasonDifference==3){
+			// if season next to current season
+			return 0.4;
+		} else {
+			// if opposite season
+			return 0.0;
+		}
+	}
+	
+	private int convertMonth(String month){
+		Date date = null;
+		try {
+			date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(month);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(date);
+	    int monthInt = cal.get(Calendar.MONTH);
+	    return monthInt;
+	}
+	
+	public double calculateAccommodationSimilarity(String newAccom, String existingAccom){
+		int newAccomRating = convertAccom(newAccom);
+		int existingAccomRating = convertAccom(existingAccom);
+		
+		int ratingDifference = Math.abs(newAccomRating - existingAccomRating);
+		
+		double result = -(accomThreshold)*ratingDifference + 1;
+		if(result > 0){
+			return result;
+		}
+		return 0.0;
+	}
+
+	private int convertAccom(String accom) {
+		switch(accom){
+			case "HolidayFlat": return 0;
+			case "OneStar": return 1;
+			case "TwoStars": return 2;
+			case "ThreeStars": return 3;
+			case "FourStars": return 4;
+			case "FiveStars": return 5;
+			default: return 6;
+		}
 	}
 }
