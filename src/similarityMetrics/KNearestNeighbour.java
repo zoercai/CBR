@@ -9,14 +9,14 @@ import retrieval.TravelCase;
 public class KNearestNeighbour {
 	public DefaultMetrics metrics;
 	public Cases cases;
-	public double holidayWeight = 0;
-	public double transportWeight = 0;
-	public double priceWeight = 0;
-	public double peopleWeight = 0;
-	public double durationWeight = 0;
-	public double seasonWeight = 0;
-	public double accommodationWeight = 1;
-
+	public double holidayWeight = 0.2;
+	public double transportWeight = 0.1;
+	public double priceWeight = 0.3;
+	public double peopleWeight = 0.2;
+	public double durationWeight = 0.2;
+	public double seasonWeight = 0.2;
+	public double accommodationWeight = 0.2;
+	
 	public KNearestNeighbour(DefaultMetrics defaultMetrics, Cases cases) {
 		this.metrics  = defaultMetrics;
 		this.cases = cases;

@@ -40,11 +40,47 @@ public class DefaultMetrics {
 		}
 		// Create decision table and populate it with random values
 		this.holidayDecisionTable = new SymmetricalDecisionTable(this.holidayTypes);
-		for(int i = 0; i<this.holidayTypes.size(); i++){
-			for(int j = i+1; j<this.holidayTypes.size(); j++){
-				this.holidayDecisionTable.updateValue(i, j, Math.random());
-			}
-		}
+		
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("Active"), 0.1);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("Education"), 0.1);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("City"), 0.3);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("Recreation"), 0.7);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("Wandering"), 0.65);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("Language"), 0.3);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("Skiing"), 0.2);
+		
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Active"), this.holidayTypes.get("Education"), 0.2);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Active"), this.holidayTypes.get("City"), 0.2);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Active"), this.holidayTypes.get("Recreation"), 0.5);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Active"), this.holidayTypes.get("Wandering"), 0.75);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Active"), this.holidayTypes.get("Language"), 0.45);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Active"), this.holidayTypes.get("Skiing"), 1);
+		
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Education"), this.holidayTypes.get("City"), 0.8);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Education"), this.holidayTypes.get("Recreation"), 0.5);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Education"), this.holidayTypes.get("Wandering"), 0.5);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Education"), this.holidayTypes.get("Language"), 0.9);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Education"), this.holidayTypes.get("Skiing"), 0.45);
+		
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("City"), this.holidayTypes.get("Recreation"), 0.7);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("City"), this.holidayTypes.get("Wandering"), 0.9);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("City"), this.holidayTypes.get("Language"), 0.75);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("City"), this.holidayTypes.get("Skiing"), 0.15);
+		
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Recreation"), this.holidayTypes.get("Wandering"), 0.8);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Recreation"), this.holidayTypes.get("Language"), 0.4);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Recreation"), this.holidayTypes.get("Skiing"), 0.9);
+		
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Wandering"), this.holidayTypes.get("Language"), 0.65);
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Wandering"), this.holidayTypes.get("Skiing"), 0.45);
+		
+		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Language"), this.holidayTypes.get("Skiing"), 0.3);
+		
+//		for(int i = 0; i<this.holidayTypes.size(); i++){
+//			for(int j = i+1; j<this.holidayTypes.size(); j++){
+//				this.holidayDecisionTable.updateValue(i, j, Math.random());
+//			}
+//		}
 		this.holidayDecisionTable.printTableValues();
 		System.out.println();
 	}
@@ -61,13 +97,30 @@ public class DefaultMetrics {
 		}
 		// Create decision table and populate it with random values
 		this.transportDecisionTable = new DecisionTable(this.transportTypes);
-		for (int i = 0; i < this.transportTypes.size(); i++) {
-			for (int j = 0; j < this.transportTypes.size(); j++) {
-				if(i!=j){
-					this.transportDecisionTable.updateValue(i, j, Math.random());
-				}
-			}
-		}
+		
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Car"), this.transportTypes.get("Coach"), 0.5);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Car"), this.transportTypes.get("Plane"), 0.0);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Car"), this.transportTypes.get("Train"), 0.8);
+		
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Coach"), this.transportTypes.get("Car"), 0.5);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Coach"), this.transportTypes.get("Plane"), 0.0);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Coach"), this.transportTypes.get("Train"), 0.7);
+		
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Plane"), this.transportTypes.get("Car"), 0.0);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Plane"), this.transportTypes.get("Coach"), 0.0);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Plane"), this.transportTypes.get("Train"), 0.0);
+		
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Train"), this.transportTypes.get("Car"), 0.3);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Train"), this.transportTypes.get("Coach"), 0.7);
+		this.transportDecisionTable.updateValue(this.transportTypes.get("Train"), this.transportTypes.get("Plane"), 0.0);
+		
+//		for (int i = 0; i < this.transportTypes.size(); i++) {
+//			for (int j = 0; j < this.transportTypes.size(); j++) {
+//				if(i!=j){
+//					this.transportDecisionTable.updateValue(i, j, Math.random());
+//				}
+//			}
+//		}
 		this.transportDecisionTable.printTableValues();
 		System.out.println();
 	}
