@@ -38,7 +38,7 @@ public class DefaultMetrics {
 				this.holidayTypes.put(currentHolidayType, size++);
 			}
 		}
-		// Create decision table and populate it with random values
+		// Create decision table and populate it
 		this.holidayDecisionTable = new SymmetricalDecisionTable(this.holidayTypes);
 		
 		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Bathing"), this.holidayTypes.get("Active"), 0.1);
@@ -75,12 +75,7 @@ public class DefaultMetrics {
 		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Wandering"), this.holidayTypes.get("Skiing"), 0.45);
 		
 		this.holidayDecisionTable.updateValue(this.holidayTypes.get("Language"), this.holidayTypes.get("Skiing"), 0.3);
-		
-//		for(int i = 0; i<this.holidayTypes.size(); i++){
-//			for(int j = i+1; j<this.holidayTypes.size(); j++){
-//				this.holidayDecisionTable.updateValue(i, j, Math.random());
-//			}
-//		}
+
 		this.holidayDecisionTable.printTableValues();
 		System.out.println();
 	}
@@ -95,7 +90,7 @@ public class DefaultMetrics {
 				this.transportTypes.put(currentTransportType, size++);
 			}
 		}
-		// Create decision table and populate it with random values
+		// Create decision table and populate it
 		this.transportDecisionTable = new DecisionTable(this.transportTypes);
 		
 		this.transportDecisionTable.updateValue(this.transportTypes.get("Car"), this.transportTypes.get("Coach"), 0.5);
@@ -113,14 +108,7 @@ public class DefaultMetrics {
 		this.transportDecisionTable.updateValue(this.transportTypes.get("Train"), this.transportTypes.get("Car"), 0.3);
 		this.transportDecisionTable.updateValue(this.transportTypes.get("Train"), this.transportTypes.get("Coach"), 0.7);
 		this.transportDecisionTable.updateValue(this.transportTypes.get("Train"), this.transportTypes.get("Plane"), 0.0);
-		
-//		for (int i = 0; i < this.transportTypes.size(); i++) {
-//			for (int j = 0; j < this.transportTypes.size(); j++) {
-//				if(i!=j){
-//					this.transportDecisionTable.updateValue(i, j, Math.random());
-//				}
-//			}
-//		}
+
 		this.transportDecisionTable.printTableValues();
 		System.out.println();
 	}
@@ -198,6 +186,10 @@ public class DefaultMetrics {
 	public double calculateAccommodationSimilarity(String newAccom, String existingAccom){
 		int newAccomRating = convertAccom(newAccom);
 		int existingAccomRating = convertAccom(existingAccom);
+		
+		if (existingAccomRating > newAccomRating){
+			return 1.0;
+		}
 		
 		int ratingDifference = Math.abs(newAccomRating - existingAccomRating);
 		

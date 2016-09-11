@@ -22,7 +22,7 @@ public class Cases {
 	public boolean accommodation = false;
 	public boolean hotel = false;
 	
-	protected void read(){
+	public void read(){
 		CSVReader reader;
 		try {
 			reader = new CSVReader(new FileReader("./resources/TRAVEL.csv"));

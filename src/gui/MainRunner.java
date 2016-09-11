@@ -1,4 +1,4 @@
-package retrieval;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -18,6 +18,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
+import retrieval.Cases;
+import retrieval.TravelCase;
 import similarityMetrics.DefaultMetrics;
 import similarityMetrics.KNearestNeighbour;
 
